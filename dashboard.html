@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+<div class="card hero hero-visual">
+  <div class="user-intro">
+    <div class="user-avatar">👤</div>
+    <div>
+      <h2>Welcome, {{ current_user.username }}!</h2>
+      <p>Track requests, manage feedback, and stay connected with the community in one elegant dashboard.</p>
+    </div>
+  </div>
+  <div class="hero-visual-badge">Helping Hands • Community Care</div>
+</div>
+
+<div class="grid">
+  <div class="card stat-card">
+    <div class="stat-number">{{ request_count }}</div>
+    <div class="stat-label">Help Requests</div>
+    <div class="mini-chart" style="width: 80%"></div>
+  </div>
+  <div class="card stat-card">
+    <div class="stat-number">{{ feedback_count }}</div>
+    <div class="stat-label">Feedback Entries</div>
+    <div class="mini-chart" style="width: 64%"></div>
+  </div>
+  <div class="card stat-card">
+    <div class="stat-number">{{ volunteer_count }}</div>
+    <div class="stat-label">Volunteers</div>
+    <div class="mini-chart" style="width: 74%"></div>
+  </div>
+</div>
+
+<div class="card">
+  <h3>Community Impact</h3>
+  <div class="impact-grid">
+    <div class="impact-card">
+      <div class="impact-value">1.2K+</div>
+      <div class="impact-label">People helped</div>
+    </div>
+    <div class="impact-card">
+      <div class="impact-value">94%</div>
+      <div class="impact-label">Response satisfaction</div>
+    </div>
+    <div class="impact-card">
+      <div class="impact-value">24/7</div>
+      <div class="impact-label">Support access</div>
+    </div>
+  </div>
+  <p class="muted">This platform helps communities connect faster, organize support, and create a stronger safety net for everyone.</p>
+</div>
+
+<div class="card image-strip">
+  <h3>Community Support in Action</h3>
+  <div class="image-row">
+    <div class="image-card">
+      <div class="image-placeholder">🤝</div>
+      <div class="image-caption">Volunteer support</div>
+    </div>
+    <div class="image-card">
+      <div class="image-placeholder">🏠</div>
+      <div class="image-caption">Neighborhood care</div>
+    </div>
+    <div class="image-card">
+      <div class="image-placeholder">❤️</div>
+      <div class="image-caption">Compassion in action</div>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <h3>Recent Help Requests</h3>
+  {% if recent_requests %}
+    <ul class="list-clean">
+      {% for req in recent_requests %}
+        <li class="list-item"><strong>{{ req.title }}</strong> <span class="pill">{{ req.category }}</span> <span class="status">{{ req.status }}</span></li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="muted">No requests yet.</p>
+  {% endif %}
+</div>
+
+<div class="card">
+  <h3>Recent Feedback</h3>
+  {% if recent_feedback %}
+    <ul class="list-clean">
+      {% for fb in recent_feedback %}
+        <li class="list-item"><strong>{{ fb.rating }}/5</strong> <span class="feedback-text">{{ fb.message }}</span></li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="muted">No feedback submitted yet.</p>
+  {% endif %}
+</div>
+{% endblock %}

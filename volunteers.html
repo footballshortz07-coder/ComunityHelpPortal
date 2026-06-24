@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}Volunteers{% endblock %}
+{% block content %}
+<div class="card hero">
+  <h2>Volunteer Management</h2>
+  <p>Register volunteers, track skills, and assign support availability.</p>
+</div>
+
+<div class="card">
+  <h3>Add Volunteer</h3>
+  <form method="post">
+    <input type="text" name="name" placeholder="Volunteer Name" required>
+    <input type="text" name="skills" placeholder="Skills" required>
+    <input type="text" name="availability" placeholder="Availability" required>
+    <input type="text" name="contact" placeholder="Contact Info" required>
+    <button type="submit" class="btn btn-secondary">Add Volunteer</button>
+  </form>
+</div>
+
+<div class="card">
+  <h3>Volunteer List</h3>
+  {% if volunteers %}
+    <table>
+      <tr><th>Name</th><th>Skills</th><th>Availability</th><th>Contact</th><th>Action</th></tr>
+      {% for vol in volunteers %}
+      <tr>
+        <td>{{ vol.name }}</td>
+        <td>{{ vol.skills }}</td>
+        <td>{{ vol.availability }}</td>
+        <td>{{ vol.contact }}</td>
+        <td>
+          <form method="post" action="{{ url_for('delete_volunteer', volunteer_id=vol.id) }}" style="display:inline;">
+            <button type="submit" class="btn" style="padding:0.45rem 0.7rem;">Remove</button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </table>
+  {% else %}
+    <p class="muted">No volunteers added yet.</p>
+  {% endif %}
+</div>
+{% endblock %}

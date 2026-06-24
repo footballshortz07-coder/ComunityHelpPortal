@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}Feedback{% endblock %}
+{% block content %}
+<div class="card">
+  <h2>Submit Feedback</h2>
+  <form method="post">
+    <textarea name="message" rows="5" placeholder="Write your feedback" required></textarea>
+    <select name="rating" required>
+      <option value="">Select Rating</option>
+      <option value="1">1 - Poor</option>
+      <option value="2">2 - Fair</option>
+      <option value="3">3 - Good</option>
+      <option value="4">4 - Very Good</option>
+      <option value="5">5 - Excellent</option>
+    </select>
+    <button type="submit" class="btn">Submit Feedback</button>
+  </form>
+</div>
+
+<div class="card">
+  <h2>Your Feedback</h2>
+  {% if feedbacks %}
+    <ul>
+      {% for fb in feedbacks %}
+        <li><strong>{{ fb.rating }}/5</strong> — {{ fb.message }}</li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="muted">No feedback submitted yet.</p>
+  {% endif %}
+</div>
+{% endblock %}

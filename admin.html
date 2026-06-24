@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block title %}Admin Panel{% endblock %}
+{% block content %}
+<div class="card hero">
+  <h2>Admin Panel</h2>
+  <p>Review requests, feedback, and volunteers from a single place.</p>
+</div>
+
+<div class="card">
+  <h3>All Help Requests</h3>
+  {% if requests %}
+    <table>
+      <tr><th>Title</th><th>Category</th><th>Status</th><th>User</th></tr>
+      {% for req in requests %}
+      <tr>
+        <td>{{ req.title }}</td>
+        <td>{{ req.category }}</td>
+        <td>{{ req.status }}</td>
+        <td>{{ req.user.username }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+  {% else %}
+    <p class="muted">No requests found.</p>
+  {% endif %}
+</div>
+
+<div class="card">
+  <h3>All Feedback</h3>
+  {% if feedbacks %}
+    <ul class="list-clean">
+      {% for fb in feedbacks %}
+        <li class="list-item"><strong>{{ fb.user.username }}</strong> — {{ fb.rating }}/5 — {{ fb.message }}</li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="muted">No feedback found.</p>
+  {% endif %}
+</div>
+
+<div class="card">
+  <h3>All Volunteers</h3>
+  {% if volunteers %}
+    <table>
+      <tr><th>Name</th><th>Skills</th><th>Availability</th><th>Contact</th></tr>
+      {% for vol in volunteers %}
+      <tr>
+        <td>{{ vol.name }}</td>
+        <td>{{ vol.skills }}</td>
+        <td>{{ vol.availability }}</td>
+        <td>{{ vol.contact }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+  {% else %}
+    <p class="muted">No volunteers found.</p>
+  {% endif %}
+</div>
+{% endblock %}
